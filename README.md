@@ -150,13 +150,16 @@ claude
 # "Generate a master data validation report for vendor accounts"
 ```
 
-### 2. SAP GUI Scripting Setup (Optional)
+### 2. SAP GUI Scripting Setup
 
-**Note:** SAP GUI Scripting is only needed if you plan to automate SAP transactions. For standalone analysis scripts like `pe_error_analysis.py`, this is **not required**.
+**SAP GUI Scripting** is the interface to connect to and automate SAP systems via COM automation.
+
+**Note:** The example script `pe_error_analysis.py` uses hardcoded error data for demonstration purposes and doesn't require a live SAP connection. However, to create scripts that extract real data from SAP, you **must** have SAP GUI Scripting enabled.
 
 #### Prerequisites:
 - **Windows OS** (SAP GUI Scripting uses COM automation)
 - **SAP GUI for Windows** installed
+- **Access to SAP system** with appropriate authorizations
 
 #### Enable SAP GUI Scripting:
 
@@ -175,9 +178,24 @@ Value: TRUE
 ```
 
 #### Python Library for SAP GUI Automation:
-If you plan to create SAP GUI automation scripts:
+Required for all SAP data extraction scripts:
 ```bash
 pip install pywin32
+```
+
+**Example SAP GUI Connection:**
+```python
+import win32com.client
+
+# Connect to SAP GUI
+sap_gui = win32com.client.GetObject("SAPGUI")
+application = sap_gui.GetScriptingEngine
+connection = application.Children(0)  # First connection
+session = connection.Children(0)      # First session
+
+# Now you can interact with SAP
+# Example: Navigate to transaction
+session.StartTransaction("SE16")
 ```
 
 ### 3. Python Requirements
@@ -191,7 +209,7 @@ pip install pywin32
 # For Excel report generation (required)
 pip install openpyxl
 
-# For SAP GUI automation (optional - only if automating SAP transactions)
+# For SAP GUI automation and data extraction (required for SAP connectivity)
 pip install pywin32
 ```
 
@@ -206,8 +224,8 @@ venv\Scripts\activate
 # Activate (macOS/Linux)
 source venv/bin/activate
 
-# Install dependencies
-pip install openpyxl
+# Install all dependencies
+pip install openpyxl pywin32
 ```
 
 ## Running Scripts

@@ -1,27 +1,21 @@
-# SAP GUI Scripting AI Agent
+# SAP Posting Engine Error Analysis
 
-AI-powered SAP GUI automation agent using LangGraph + LangChain with SAP Generative AI Hub to interpret natural language commands and perform SAP GUI operations via Windows COM automation.
+Python script to generate formatted Excel reports analyzing common SAP Posting Engine (DMLT) errors with root cause analysis and solutions.
 
 ## Overview
 
-This project automates SAP GUI operations for FI/CO analysis tasks. The user receives analysis requests via email, runs SAP queries, and replies with results. The agent handles this conversationally using natural language.
+This tool helps SAP DMLT consultants quickly analyze and document Posting Engine errors from migration projects, providing actionable solutions and prioritized remediation plans.
 
 ## Tech Stack
 
-- **Language:** Python 3.14.0
-- **AI Framework:** LangGraph 1.0.7, LangChain 1.2.7
-- **LLM Provider:** SAP AI Core (Generative AI Hub) - gpt-4o
-- **SAP GUI Access:** pywin32 (COM automation)
-- **Config:** python-dotenv (.env file)
+- **Language:** Python 3.x
+- **Libraries:** openpyxl (Excel generation)
 
 ## Project Structure
 
 ```
-sap_gui_scripting_ai.py   # Main AI agent application
-sap_scripting.py           # Reusable SapSession & OutlookSession classes
 create_excel.py            # Posting Engine error analysis Excel generator
-.env                       # SAP AI Core credentials (NOT committed)
-venv/                      # Python virtual environment
+README.md                  # Documentation
 ```
 
 ## Scripts
@@ -56,39 +50,16 @@ python create_excel.py
 
 ## Setup & Prerequisites
 
-### Windows Requirements
-- Windows OS (COM dependency)
-- SAP GUI for Windows with scripting enabled (Alt+F12 → Options → Scripting)
-- Server parameter: `sapgui/user_scripting = TRUE` (set via RZ11)
-- Microsoft Outlook running locally (for email integration)
-
 ### Python Setup
 ```bash
-# Create virtual environment
-python -m venv venv
-
-# Activate virtual environment
-venv\Scripts\activate
-
-# Install dependencies
-pip install pywin32 langchain langgraph generative-ai-hub-sdk[langchain] python-dotenv openpyxl
+# Install required library
+pip install openpyxl
 ```
 
-### Configuration
-Create a `.env` file with your SAP AI Core credentials:
-```
-# SAP AI Core credentials (never commit this file!)
-SAP_AI_CORE_URL=https://your-instance.com
-SAP_AI_CORE_CLIENT_ID=your-client-id
-SAP_AI_CORE_CLIENT_SECRET=your-secret
-```
-
-## Running the Agent
+## Running the Script
 
 ```bash
-# Ensure SAP GUI is open with an active session
-venv\Scripts\activate
-python sap_gui_scripting_ai.py
+python create_excel.py
 ```
 
 ## SAP Posting Engine Knowledge

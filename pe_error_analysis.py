@@ -25,11 +25,11 @@ severity_low_fill = PatternFill(start_color='C6EFCE', end_color='C6EFCE', fill_t
 
 # Title
 ws.merge_cells('A1:I1')
-ws['A1'] = 'Posting Engine Error Monitor Analysis - Project ZFI_SDT'
+ws['A1'] = 'Posting Engine Error Monitor Analysis'
 ws['A1'].font = title_font
 
 ws.merge_cells('A2:I2')
-ws['A2'] = f'System: MWA / Client: 100 / Area: ZAP_OI (Vendor Open Items) / Scenario: Receiver Processing / Generated: {datetime.now().strftime("%Y-%m-%d %H:%M")}'
+ws['A2'] = f'Area: Vendor Open Items / Scenario: Receiver Processing / Generated: {datetime.now().strftime("%Y-%m-%d %H:%M")}'
 ws['A2'].font = subtitle_font
 
 # Headers (row 4)
@@ -62,7 +62,7 @@ errors = [
         'count': '9999+',
         'text': 'Interval does not exist for object (Number range missing)',
         'severity': 'HIGH',
-        'root_cause': 'The document type used in target posting refers to a number range interval that does not exist or is not maintained in the target system (MWA client 100). With 9999+ occurrences this is the most widespread error and likely blocks the majority of worklist items from being posted.',
+        'root_cause': 'The document type used in target posting refers to a number range interval that does not exist or is not maintained in the target system. With 9999+ occurrences this is the most widespread error and likely blocks the majority of worklist items from being posted.',
         'solution': '1. Identify which number range objects are missing: check the error details for the specific object name (e.g., FBNR for FI documents).\n2. Go to the target system and maintain the number range in customizing (e.g., FBN1 for FI document numbers, or SNRO for general number ranges).\n3. Ensure both the number range NUMBER and the FROM/TO interval are maintained.\n4. After fixing, rebuild transfer list and re-simulate affected worklist items.',
         'reference': 'PECON FAQ #35\nSNRO / FBN1 in target system'
     },
@@ -92,7 +92,7 @@ errors = [
         'count': '86',
         'text': 'Vendor account is flagged for deletion',
         'severity': 'MEDIUM',
-        'root_cause': 'The vendor master record in the target system (MWA) has a deletion flag set. SAP does not allow posting to accounts marked for deletion. This is a master data issue in the target system.',
+        'root_cause': 'The vendor master record in the target system has a deletion flag set. SAP does not allow posting to accounts marked for deletion. This is a master data issue in the target system.',
         'solution': '1. Identify the affected vendor accounts from the error details.\n2. In target system, use XK02/FK02 to remove the deletion flag from the vendor master (General Data -> Status tab or Company Code data).\n3. Alternatively, if deletion is intentional, add a Skip Rule or WL1 Modification Rule to exclude these vendors from migration.\n4. Re-process affected worklist items after master data correction.',
         'reference': 'XK02/FK02 -> Remove deletion flag\nOr implement Skip Rule'
     },
@@ -200,7 +200,7 @@ ws.row_dimensions[4].height = 30
 ws2 = wb.create_sheet('Summary')
 
 ws2.merge_cells('A1:D1')
-ws2['A1'] = 'Error Summary - ZFI_SDT / ZAP_OI (Vendor Open Items)'
+ws2['A1'] = 'Error Summary - Vendor Open Items'
 ws2['A1'].font = title_font
 
 headers2 = [('A', 'Severity', 12), ('B', 'Error Count', 15), ('C', 'Affected Items', 18), ('D', 'Action Required', 60)]
@@ -284,7 +284,7 @@ ws2.freeze_panes = 'A3'
 ws.auto_filter.ref = f'A4:I{4 + len(errors)}'
 
 # Save
-filepath = r'C:\Users\I557430\Documents\sap_gui_scripting_ai\PE_Error_Analysis_ZFI_SDT.xlsx'
+filepath = 'PE_Error_Analysis.xlsx'
 wb.save(filepath)
 print(f'Excel file saved to: {filepath}')
 print(f'Sheets: Error Analysis ({len(errors)} errors), Summary (with priority order)')

@@ -62,7 +62,7 @@ report.save('output.xlsx')
 - Color-coded severity levels (High/Medium/Low)
 
 **Output:**
-- `PE_Error_Analysis_ZFI_SDT.xlsx` - Two-sheet workbook
+- `PE_Error_Analysis.xlsx` - Two-sheet workbook
   - Sheet 1: Detailed error analysis with solutions
   - Sheet 2: Summary with priority order
 
@@ -82,9 +82,7 @@ python pe_error_analysis.py
 ```
 
 **SAP Context:**
-- **System:** MWA / Client: 100
-- **Project:** ZFI_SDT
-- **Area:** ZAP_OI (Vendor Open Items)
+- **Area:** Vendor Open Items
 - **Scenario:** Receiver Processing
 - **Transactions:** /SLO/PECON, CNV_PE_PROJ, CNV_PE_EDITOR
 

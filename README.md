@@ -131,8 +131,10 @@ Claude Code can generate new SAP analysis scripts tailored to your specific need
 
 2.**Let Claude learn to generate a python script based on** 
 https://help.sap.com/doc/9215986e54174174854b0af6bb14305a/770.08/en-US/sap_gui_scripting_api.pdf
+
 3. **Fed Claude with your specific knowledge**
-4. **Ask Claude to do your work**
+   
+4.  **Ask Claude to do your work**
 
    **Example Prompts:**
     "Go into Error Monitor of /SLO/PECON, check messages, create Excel with solutions"
